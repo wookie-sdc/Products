@@ -1,16 +1,80 @@
-DROP DATABASE IF EXISTS productOverview WITH (FORCE);
+DROP DATABASE IF EXISTS product_overview WITH (FORCE);
 
-CREATE DATABASE productOverview;
+CREATE DATABASE product_overview;
 
-\c productOverview
+\c product_overview
 
-DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS products, related;
 
 CREATE TABLE IF NOT EXISTS products (
-  id PRIMARY KEY,
-  name VARCHAR(225) NULL DEFAULT NULL,
-  slogan VARCHAR(225) NULL DEFAULT NULL,
-  description VARCHAR(535) NULL DEFAULT NULL,
-  category VARCHAR(255) NULL DEFAULT NULL,
-  default_price INTEGER(65) NULL DEFAULT NULL,
-)
+  id INTEGER UNIQUE PRIMARY KEY NOT NULL,
+  name VARCHAR(225) NOT NULL,
+  slogan VARCHAR(225) NOT NULL,
+  description VARCHAR(535) NOT NULL,
+  category VARCHAR(255) NOT NULL,
+  default_price INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS features (
+  id INTEGER UNIQUE PRIMARY KEY NOT NULL,
+  product_id INTEGER NOT NULL,
+  feature VARCHAR(225) NOT NULL,
+  value VARCHAR(225) NOT NULL,
+  CONSTRAINT features_id FOREIGN KEY (product_id) REFERENCES products (id)
+);
+
+CREATE TABLE IF NOT EXISTS styles (
+  id INTEGER UNIQUE PRIMARY KEY NOT NULL,
+  product_id INTEGER NOT NULL,
+  name VARCHAR(225) NOT NULL,
+  sale_price INTEGER,
+  original_price INTEGER NOT NULL,
+  default_style BOOLEAN NOT NULL,
+  CONSTRAINT styles_id FOREIGN KEY (product_id) REFERENCES products (id)
+);
+
+CREATE TABLE IF NOT EXISTS photos (
+  id INTEGER UNIQUE PRIMARY KEY NOT NULL,
+  style_id INTEGER NOT NULL,
+  url TEXT NOT NULL,
+  thumbnail_url TEXT NOT NULL,
+  CONSTRAINT photos_id FOREIGN KEY (style_id) REFERENCES styles (id)
+);
+
+CREATE TABLE IF NOT EXISTS skus (
+  id INTEGER UNIQUE PRIMARY KEY NOT NULL,
+  style_id INTEGER NOT NULL,
+  size VARCHAR(25) NOT NULL,
+  quantity INTEGER NOT NULL,
+  CONSTRAINT skus_id FOREIGN KEY (style_id) REFERENCES styles (id)
+);
+
+CREATE TABLE IF NOT EXISTS related (
+  id INTEGER UNIQUE PRIMARY KEY NOT NULL,
+  current_product_id INTEGER NOT NULL,
+  related_product_id INTEGER NOT NULL,
+  CONSTRAINT related_id FOREIGN KEY (current_product_id) REFERENCES products (id)
+);
+
+COPY products FROM '/Users/estherkuang/ProductsCSVs/product.csv' DELIMITER ',' CSV Header;
+
+COPY styles FROM '/Users/estherkuang/ProductsCSVs/styles.csv' DELIMITER ',' CSV Header NULL 'null';
+
+COPY features FROM '/Users/estherkuang/ProductsCSVs/features.csv' DELIMITER ',' CSV Header;
+
+COPY photos FROM '/Users/estherkuang/ProductsCSVs/photos.csv' DELIMITER ',' CSV Header;
+
+COPY skus FROM '/Users/estherkuang/ProductsCSVs/skus.csv' DELIMITER ',' CSV Header;
+
+COPY related FROM '/Users/estherkuang/ProductsCSVs/related.csv' DELIMITER ',' CSV Header;
+
+
+-- test
+-- DROP DATABASE IF EXISTS test WITH (FORCE);
+-- CREATE DATABASE test;
+-- \connect test;
+
+-- CREATE TABLE test (
+--   id INTEGER,
+--   name VARCHAR(50)
+-- )

@@ -1,10 +1,10 @@
-DROP DATABASE IF EXISTS product_overview WITH (FORCE);
+DROP DATABASE IF EXISTS productoverview WITH (FORCE);
 
-CREATE DATABASE product_overview;
+CREATE DATABASE productoverview;
 
-\c product_overview
+\c productoverview;
 
-DROP TABLE IF EXISTS products, related;
+-- DROP TABLE IF EXISTS products, features, styles, photos, skus related;
 
 CREATE TABLE IF NOT EXISTS products (
   id INTEGER UNIQUE PRIMARY KEY NOT NULL,

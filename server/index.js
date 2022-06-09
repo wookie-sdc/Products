@@ -16,6 +16,11 @@ app.get('/hello', (req, res) => {
 
 app.get('/products', controller.products);
 app.get('/products/:product_id', controller.productInfo);
+app.get('/products/:product_id/features', controller.productFeatures);
+app.get('/products/:product_id/styles', controller.productStyles);
+app.get('/products/:product_id/styles/photos', controller.productPhotos);
+app.get('/products/:product_id/styles/skus', controller.productSkus);
+app.get('/products/:product_id/styles/related', controller.relatedProducts);
 
 app.listen(PORT, () => {
   console.log(`Server running on ${PORT}`);

@@ -18,11 +18,19 @@ const model = {
   productInfo: function(callback, values) {
     // console.log('what is this', db)
     console.log('what id prodId', values)
-    var quesryStr = `SELECT * FROM products WHERE id=$1`
-    // var quesryStr = `SELECT json_agg(json_build_object)
-    //   FROM (
-    //     SELECT WHERE id=$1`
-    db.query(quesryStr, values, function(err, data) {
+    // var queryStr = `SELECT * FROM products WHERE id=$1`
+    var queryStr = `SELECT products.*, (
+    SELECT json_agg(list)
+    FROM (
+      SELECT features.feature, features.value
+      FROM features
+      WHERE features.product_id = products.id
+    ) list)
+    AS features
+    FROM products
+    WHERE products.id = $1;`
+
+    db.query(queryStr, values, function(err, data) {
       // console.log('data??', data)
       if (err) {
         console.log(err)
@@ -32,22 +40,22 @@ const model = {
     })
   }, //MISSING FEATURES!!!
 
-  productFeatures: function(callback, values) {
-    // console.log('what is this', db)
-    console.log('what id prodId', values)
-    var quesryStr = `SELECT * FROM features WHERE id=$1`
-    // var quesryStr = `SELECT json_agg(json_build_object)
-    //   FROM (
-    //     SELECT WHERE id=$1`
-    db.query(quesryStr, values, function(err, data) {
-      // console.log('data??', data)
-      if (err) {
-        console.log(err)
-      } else {
-        callback(err, data);
-      }
-    })
-  }, //MISSING FEATURES!!!
+  // productFeatures: function(callback, values) {
+  //   // console.log('what is this', db)
+  //   console.log('what id prodId', values)
+  //   var queryStr = `SELECT * FROM features WHERE id=$1`
+  //   // var queryStr = `SELECT json_agg(json_build_object)
+  //   //   FROM (
+  //   //     SELECT WHERE id=$1`
+  //   db.query(queryStr, values, function(err, data) {
+  //     // console.log('data??', data)
+  //     if (err) {
+  //       console.log(err)
+  //     } else {
+  //       callback(err, data);
+  //     }
+  //   })
+  // }, //add this to products!!
 
   productStyles: function(callback, values) {
     console.log('prodId??', values);

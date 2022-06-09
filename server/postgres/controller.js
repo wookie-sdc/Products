@@ -31,21 +31,21 @@ module.exports = {
     }, prodId)
   },
 
-  productFeatures: function(req, res) {
-    // console.log('res cont', res)
-    var prodId = [req.params.product_id];
-    console.log('what is req??', prodId)
-    model.productFeatures((err, results) => {
-      if (err) {
-        res.sendStatus(404)
-        console.log('err:', err)
-      } else {
-        console.log('productFeatures??', results.rows)
-        // res.json(results.rows)
-        res.status(200).send(results.rows);
-      }
-    }, prodId)
-  },
+  // productFeatures: function(req, res) {
+  //   // console.log('res cont', res)
+  //   var prodId = [req.params.product_id];
+  //   console.log('what is req??', prodId)
+  //   model.productFeatures((err, results) => {
+  //     if (err) {
+  //       res.sendStatus(404)
+  //       console.log('err:', err)
+  //     } else {
+  //       console.log('productFeatures??', results.rows)
+  //       // res.json(results.rows)
+  //       res.status(200).send(results.rows);
+  //     }
+  //   }, prodId)
+  // },
 
   productStyles: function(req, res) {
     // console.log('res cont', res)

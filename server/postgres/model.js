@@ -59,18 +59,20 @@ const model = {
 
   productStyles: function(callback, values) {
     console.log('prodId??', values);
-    var queryStr = `SELECT * FROM styles WHERE id=$1`
+      // json_object_agg(json_build_object())
 
-    var queryStr = `SELECT styles.*, (
-      SELECT json_agg(prodStyles)
-      FROM (
-        SELECT photos.thumbnail_url, photos.url
-        FROM photos
-        WHERE photos.id = styles.id
-      ) prodStyles)
-      AS photos
-      FROM styles
-      WHERE styles.id = $1;`
+    var queryStr = `
+      SELECT id AS style_id, name, original_price, sale_price, default_style as "default?",
+      (SELECT json_agg(
+        json_build_object('url', url, 'thumbnail_url', thumbnail_url)) AS photos
+          FROM photos
+            WHERE style_id = styles.id),
+      (SELECT json_object_agg("id", json_build_object('quantity', quantity, 'size', size)) AS skus
+        FROM skus
+          WHERE style_id = styles.id)
+      FROM styles styles
+      WHERE styles.product_id = $1
+    `
 
     db.query(queryStr, values, function(err, data) {
       console.log('data??', data.rows)
@@ -80,7 +82,7 @@ const model = {
         callback(err, data);
       }
     })
-  }, //need to add PHOTOS AND SKUS!!!
+  },
 
   productPhotos: function(callback, values) {
     console.log('prodId??', values);

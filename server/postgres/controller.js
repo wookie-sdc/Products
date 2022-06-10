@@ -32,7 +32,6 @@ module.exports = {
   },
 
   productStyles: function(req, res) {
-    // console.log('res cont', res)
     var prodId = [req.params.product_id];
     console.log('what is req??', prodId)
     model.productStyles((err, results) => {
@@ -48,7 +47,6 @@ module.exports = {
   },
 
   relatedProducts: function(req, res) {
-    // console.log('res cont', res)
     var prodId = [req.params.product_id];
     console.log('what is req??', prodId)
     model.relatedProducts((err, results) => {
@@ -57,8 +55,12 @@ module.exports = {
         console.log('err:', err)
       } else {
         console.log('relatedProducts results??', results.rows)
+        var result = [];
+        results.rows.map((product) => {
+          result.push(product.related_product_id)
+        })
         // res.json(results.rows)
-        res.status(200).send(results.rows);
+        res.status(200).send(result);
       }
     }, prodId)
   },

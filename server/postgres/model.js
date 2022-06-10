@@ -16,9 +16,7 @@ const model = {
   },
 
   productInfo: function(callback, values) {
-    // console.log('what is this', db)
     console.log('what id prodId', values)
-    // var queryStr = `SELECT * FROM products WHERE id=$1`
     var queryStr = `SELECT products.*, (
       SELECT json_agg(product)
       FROM (
@@ -31,14 +29,13 @@ const model = {
       WHERE products.id = $1;`
 
     db.query(queryStr, values, function(err, data) {
-      // console.log('data??', data)
       if (err) {
         console.log(err)
       } else {
         callback(err, data);
       }
     })
-  }, //MISSING FEATURES!!!
+  },
 
   productStyles: function(callback, values) {
     console.log('prodId??', values);
@@ -68,17 +65,10 @@ const model = {
 
   relatedProducts: function(callback, values) {
     console.log('prodId??', values);
-    // var queryStr = `SELECT related.related_product_id FROM related WHERE id=$1`
     var queryStr = `
-      SELECT array_agg(related_product_id) FROM related
+      SELECT related_product_id FROM related
       WHERE current_product_id = $1
     `
-    // var queryStr = `
-    //   SELECT array_agg(related.related_product_id)
-    //   AS related
-    //   WHERE related.current_product_id = $1
-    // `
-
     db.query(queryStr, values, function(err, data) {
       console.log('data??', data)
       if (err) {

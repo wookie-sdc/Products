@@ -42,8 +42,6 @@ const model = {
 
   productStyles: function(callback, values) {
     console.log('prodId??', values);
-      // json_object_agg(json_build_object())
-
     var queryStr = `
       SELECT id AS style_id, name, original_price, sale_price, default_style as "default?",
       (SELECT json_agg(
@@ -58,7 +56,6 @@ const model = {
       FROM styles styles
       WHERE styles.product_id = $1
     `
-
     db.query(queryStr, values, function(err, data) {
       console.log('data??', data.rows)
       if (err) {
@@ -71,9 +68,19 @@ const model = {
 
   relatedProducts: function(callback, values) {
     console.log('prodId??', values);
-    var queryStr = `SELECT * FROM related WHERE id=$1`
+    // var queryStr = `SELECT related.related_product_id FROM related WHERE id=$1`
+    var queryStr = `
+      SELECT array_agg(related_product_id) FROM related
+      WHERE current_product_id = $1
+    `
+    // var queryStr = `
+    //   SELECT array_agg(related.related_product_id)
+    //   AS related
+    //   WHERE related.current_product_id = $1
+    // `
+
     db.query(queryStr, values, function(err, data) {
-      console.log('data??', data.rows)
+      console.log('data??', data)
       if (err) {
         console.log(err)
       } else {

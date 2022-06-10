@@ -40,23 +40,6 @@ const model = {
     })
   }, //MISSING FEATURES!!!
 
-  // productFeatures: function(callback, values) {
-  //   // console.log('what is this', db)
-  //   console.log('what id prodId', values)
-  //   var queryStr = `SELECT * FROM features WHERE id=$1`
-  //   // var queryStr = `SELECT json_agg(json_build_object)
-  //   //   FROM (
-  //   //     SELECT WHERE id=$1`
-  //   db.query(queryStr, values, function(err, data) {
-  //     // console.log('data??', data)
-  //     if (err) {
-  //       console.log(err)
-  //     } else {
-  //       callback(err, data);
-  //     }
-  //   })
-  // }, //add this to products!!
-
   productStyles: function(callback, values) {
     console.log('prodId??', values);
       // json_object_agg(json_build_object())
@@ -64,12 +47,14 @@ const model = {
     var queryStr = `
       SELECT id AS style_id, name, original_price, sale_price, default_style as "default?",
       (SELECT json_agg(
-        json_build_object('url', url, 'thumbnail_url', thumbnail_url)) AS photos
+        json_build_object('url', url, 'thumbnail_url', thumbnail_url))
+          AS photos
           FROM photos
-            WHERE style_id = styles.id),
-      (SELECT json_object_agg("id", json_build_object('quantity', quantity, 'size', size)) AS skus
+          WHERE style_id = styles.id),
+      (SELECT json_object_agg("id", json_build_object('quantity', quantity, 'size', size))
+        AS skus
         FROM skus
-          WHERE style_id = styles.id)
+        WHERE style_id = styles.id)
       FROM styles styles
       WHERE styles.product_id = $1
     `
@@ -83,32 +68,6 @@ const model = {
       }
     })
   },
-
-  productPhotos: function(callback, values) {
-    console.log('prodId??', values);
-    var queryStr = `SELECT * FROM photos WHERE id=$1`
-    db.query(queryStr, values, function(err, data) {
-      console.log('data??', data.rows)
-      if (err) {
-        console.log(err)
-      } else {
-        callback(err, data);
-      }
-    })
-  }, //need to add to the styles!!!
-
-  productSkus: function(callback, values) {
-    console.log('prodId??', values);
-    var queryStr = `SELECT * FROM skus WHERE id=$1`
-    db.query(queryStr, values, function(err, data) {
-      console.log('data??', data.rows)
-      if (err) {
-        console.log(err)
-      } else {
-        callback(err, data);
-      }
-    })
-  }, //need to add to the styles!!!
 
   relatedProducts: function(callback, values) {
     console.log('prodId??', values);

@@ -40,7 +40,7 @@ const model = {
   productStyles: function(callback, values) {
     console.log('prodId??', values);
     var queryStr = `
-      SELECT id AS style_id, name, original_price, sale_price, default_style as "default?",
+      SELECT id AS style_id, name, original_price, sale_price, default_style as 'default?',
       (SELECT json_agg(
         json_build_object('url', url, 'thumbnail_url', thumbnail_url))
           AS photos

@@ -56,6 +56,14 @@ CREATE TABLE IF NOT EXISTS related (
   CONSTRAINT related_id FOREIGN KEY (current_product_id) REFERENCES products (id)
 );
 
+-- indexes
+-- CREATE INDEX indexname ON tablename (the column you want to create as index);
+
+CREATE INDEX features_product_id on features (product_id);
+CREATE INDEX styles_style_id on styles (style_id);
+CREATE INDEX photos_style_id on photos (style_id);
+CREATE INDEX skus_style_id on skus (current_product_id);
+
 COPY products FROM '/Users/estherkuang/ProductsCSVs/product.csv' DELIMITER ',' CSV Header;
 
 COPY styles FROM '/Users/estherkuang/ProductsCSVs/styles.csv' DELIMITER ',' CSV Header NULL 'null';
@@ -67,7 +75,6 @@ COPY photos FROM '/Users/estherkuang/ProductsCSVs/photos.csv' DELIMITER ',' CSV 
 COPY skus FROM '/Users/estherkuang/ProductsCSVs/skus.csv' DELIMITER ',' CSV Header;
 
 COPY related FROM '/Users/estherkuang/ProductsCSVs/related.csv' DELIMITER ',' CSV Header;
-
 
 -- test
 -- DROP DATABASE IF EXISTS test WITH (FORCE);

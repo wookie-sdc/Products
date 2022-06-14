@@ -6,7 +6,7 @@ const model = {
     // console.log('what is this', db)
     // `SELECT * FROM products ORDER BY id LIMIT ${count} OFFSET ${(page - 1) * count}`
     db.query('SELECT * FROM products LIMIT 5', function(err, data) {
-      console.log('data??', data)
+      // console.log('data??', data)
       if (err) {
         console.log(err)
       } else {
@@ -16,7 +16,7 @@ const model = {
   },
 
   productInfo: function(callback, values) {
-    console.log('what id prodId', values)
+    // console.log('what id prodId', values)
     var queryStr = `SELECT products.*, (
       SELECT json_agg(product)
       FROM (
@@ -38,7 +38,7 @@ const model = {
   },
 
   productStyles: function(callback, values) {
-    console.log('prodId??', values);
+    // console.log('prodId??', values);
     var queryStr = `
       SELECT id AS style_id, name, original_price, sale_price, default_style as 'default?',
       (SELECT json_agg(
@@ -54,7 +54,7 @@ const model = {
       WHERE styles.product_id = $1
     `
     db.query(queryStr, values, function(err, data) {
-      console.log('data??', data.rows)
+      // console.log('data??', data.rows)
       if (err) {
         console.log(err)
       } else {
@@ -64,13 +64,13 @@ const model = {
   },
 
   relatedProducts: function(callback, values) {
-    console.log('prodId??', values);
+    // console.log('prodId??', values);
     var queryStr = `
       SELECT related_product_id FROM related
       WHERE current_product_id = $1
     `
     db.query(queryStr, values, function(err, data) {
-      console.log('data??', data)
+      // console.log('data??', data)
       if (err) {
         console.log(err)
       } else {

@@ -2,7 +2,7 @@ const model = require('./model.js')
 
 module.exports = {
   products: function(req, res) {
-    console.log('res cont', req.query.count)
+    // console.log('res cont', req.query.count)
     model.products((err, results) => {
       if (err) {
         res.sendStatus(404)
@@ -18,7 +18,7 @@ module.exports = {
   productInfo: function(req, res) {
     // console.log('res cont', res)
     var prodId = [req.params.product_id];
-    console.log('what is req??', prodId)
+    // console.log('what is req??', prodId)
     model.productInfo((err, results) => {
       if (err) {
         res.sendStatus(404)
@@ -33,7 +33,7 @@ module.exports = {
 
   productStyles: function(req, res) {
     var prodId = [req.params.product_id];
-    console.log('what is req??', prodId)
+    // console.log('what is req??', prodId)
     model.productStyles((err, results) => {
       if (err) {
         res.sendStatus(404)
@@ -48,13 +48,13 @@ module.exports = {
 
   relatedProducts: function(req, res) {
     var prodId = [req.params.product_id];
-    console.log('what is req??', prodId)
+    // console.log('what is req??', prodId)
     model.relatedProducts((err, results) => {
       if (err) {
         res.sendStatus(404)
         console.log('err:', err)
       } else {
-        console.log('relatedProducts results??', results.rows)
+        // console.log('relatedProducts results??', results.rows)
         var result = [];
         results.rows.map((product) => {
           result.push(product.related_product_id)

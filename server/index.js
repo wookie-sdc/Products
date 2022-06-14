@@ -18,8 +18,8 @@ app.get('/products', controller.products);
 app.get('/products/:product_id', controller.productInfo);
 app.get('/products/:product_id/styles', controller.productStyles);
 app.get('/products/:product_id/styles/related', controller.relatedProducts);
-app.get('/loaderio-9457e572686a31310e8617071b5b915e', (req, res) => {
-  res.send('loaderio-9457e572686a31310e8617071b5b915e');
+app.get('/loaderio-39efbdfc9d6a22c54e5ec8bb3be75445', (req, res) => {
+  res.send('loaderio-39efbdfc9d6a22c54e5ec8bb3be75445');
 });
 
 app.listen(PORT, () => {

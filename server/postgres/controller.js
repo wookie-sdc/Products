@@ -8,7 +8,7 @@ module.exports = {
         res.sendStatus(404)
         console.log('err:', err)
       } else {
-        console.log('results??', results.rows)
+        // console.log('results??', results.rows)
         // res.json(results.rows)
         res.status(200).send(results.rows);
       }
@@ -24,7 +24,7 @@ module.exports = {
         res.sendStatus(404)
         console.log('err:', err)
       } else {
-        console.log('results??', results.rows[0].features)
+        // console.log('results??', results.rows[0].features)
         // res.json(results.rows)
         res.status(200).send(results.rows);
       }
@@ -39,7 +39,7 @@ module.exports = {
         res.sendStatus(404)
         console.log('err:', err)
       } else {
-        console.log('prodStyle results??', results.rows)
+        // console.log('prodStyle results??', results.rows)
         // res.json(results.rows)
         res.status(200).send(results.rows);
       }

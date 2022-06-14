@@ -19,7 +19,6 @@ app.get('/products/:product_id', controller.productInfo);
 app.get('/products/:product_id/styles', controller.productStyles);
 app.get('/products/:product_id/styles/related', controller.relatedProducts);
 app.get('/loaderio-9457e572686a31310e8617071b5b915e', (req, res) => {
-  console.log('loaderio worked')
   res.send('loaderio-9457e572686a31310e8617071b5b915e');
 });
 

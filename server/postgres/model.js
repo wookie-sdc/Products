@@ -50,7 +50,7 @@ const model = {
         AS skus
         FROM skus
         WHERE style_id = styles.id)
-      FROM styles
+      FROM styles styles
       WHERE styles.product_id = $1
     `
     db.query(queryStr, values, function(err, data) {

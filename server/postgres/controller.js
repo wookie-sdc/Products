@@ -5,8 +5,7 @@ module.exports = {
     // console.log('res cont', req.query.count)
     model.products((err, results) => {
       if (err) {
-        res.sendStatus(404)
-        console.log('err:', err)
+        res.status(404).send(err);
       } else {
         // console.log('results??', results.rows)
         // res.json(results.rows)
@@ -21,8 +20,7 @@ module.exports = {
     // console.log('what is req??', prodId)
     model.productInfo((err, results) => {
       if (err) {
-        res.sendStatus(404)
-        console.log('err:', err)
+        res.status(404).send(err);
       } else {
         // console.log('results??', results.rows[0].features)
         // res.json(results.rows)
@@ -36,8 +34,7 @@ module.exports = {
     // console.log('what is req??', prodId)
     model.productStyles((err, results) => {
       if (err) {
-        res.sendStatus(404)
-        console.log('err:', err)
+        res.status(404).send(err);
       } else {
         // console.log('prodStyle results??', results.rows)
         // res.json(results.rows)
@@ -51,8 +48,7 @@ module.exports = {
     // console.log('what is req??', prodId)
     model.relatedProducts((err, results) => {
       if (err) {
-        res.sendStatus(404)
-        console.log('err:', err)
+        res.status(404).send(err);
       } else {
         // console.log('relatedProducts results??', results.rows)
         var result = [];

@@ -8,9 +8,9 @@ const model = {
     db.query('SELECT * FROM products LIMIT 5', function(err, data) {
       // console.log('data??', data)
       if (err) {
-        console.log(err)
+        callback(err, data)
       } else {
-        callback(err, data);
+        callback(null, data);
       }
     })
   },
@@ -30,9 +30,9 @@ const model = {
 
     db.query(queryStr, values, function(err, data) {
       if (err) {
-        console.log(err)
+        callback(err, data)
       } else {
-        callback(err, data);
+        callback(null, data);
       }
     })
   },
@@ -56,9 +56,9 @@ const model = {
     db.query(queryStr, values, function(err, data) {
       // console.log('data??', data.rows)
       if (err) {
-        console.log(err)
+        callback(err, data)
       } else {
-        callback(err, data);
+        callback(null, data);
       }
     })
   },
@@ -72,9 +72,9 @@ const model = {
     db.query(queryStr, values, function(err, data) {
       // console.log('data??', data)
       if (err) {
-        console.log(err)
+        callback(err, data)
       } else {
-        callback(err, data);
+        callback(null, data);
       }
     })
   },

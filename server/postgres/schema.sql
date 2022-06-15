@@ -59,6 +59,9 @@ CREATE TABLE IF NOT EXISTS related (
 -- indexes
 -- CREATE INDEX indexname ON tablename (the column you want to create as index);
 
+CREATE INDEX styles_skus_prod_id on skus (style_id);
+CREATE INDEX styles_photos_prod_id on photos (style_id);
+CREATE INDEX styles_prod_id on styles (product_id);
 CREATE INDEX related_prod_id on related (current_product_id);
 
 COPY products FROM '/Users/estherkuang/ProductsCSVs/product.csv' DELIMITER ',' CSV Header;

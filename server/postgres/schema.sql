@@ -59,6 +59,7 @@ CREATE TABLE IF NOT EXISTS related (
 -- indexes
 -- CREATE INDEX indexname ON tablename (the column you want to create as index);
 
+CREATE INDEX features_prod_id on features (product_id);
 CREATE INDEX styles_skus_prod_id on skus (style_id);
 CREATE INDEX styles_photos_prod_id on photos (style_id);
 CREATE INDEX styles_prod_id on styles (product_id);
